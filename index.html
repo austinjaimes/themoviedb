@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles/styles.css">
+    <title></title>
+</head>
+<body>
+    <h2 class="title-movies"></h2>
+    <div class="prueba">
+        
+    <h1 class="trends-title inactive">Trends</h1>
+    </div>
+    <header class="header-container">
+
+
+
+        <h1 class="tituloNo"></h1>
+
+
+        
+        <div class="start-view">
+            <img src="./assets/logomagnifico.PNG" width=200 alt="Logo">
+            <h1 class="title-main">MagnificMovies</h1>
+            <form id="search-input">
+                <input type="text" placeholder="   Vengadores" class="input">
+                <button id="search-button" class="button-search">Search</button>
+            </form>
+            <ul class="list-header">
+                <li class="favorites">View Favorites</li>
+            </ul>
+            <h1 class="view-trends">Trends</h1>
+            <h1 class="view-more">View more</h1>
+        </div>
+    </header>
+    <span class="arrow-back">Back</span>
+    <button class="button-add" onclick="(e) =>addMovieToFavorites(e)">Add to favorites</button>
+    <section class="movies-container">
+        <div class="card-container">
+            
+        </div>
+    </section>
+    <section class="movie-category">
+        <div>
+
+        </div>
+    </section>
+    <section class="view-categories">
+        <h1 class="title-related">Related Movies</h1>
+
+        <div class="space-categories">
+        </div>
+    </section>
+    <section class="category-cards-container">
+        <h1 class="categories-title">Categories</h1>
+        <div class="category-card">
+
+        </div>
+    </section>
+
+    <section id="movie-detail" class="movieDetail-container inactive">
+        <h1 class="movieDetail-title"></h1>
+        <span class="movieDetail-score"></span>
+        <p class="movieDetail-description">
+        
+        </p>
+    </section>
+    <section>
+        <div id="favorites-movies">
+            
+        </div>
+    </section>
+    <script src="secrets.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="nodes.js"></script>
+    <script src="main.js"></script>
+    <script src="navigation.js"></script>
+    <script src="favorites.js"></script>
+</body>
+</html>
+
+
+
