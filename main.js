@@ -8,23 +8,60 @@ const api = axios.create({
     },
 });
 
-function createMovie(movies, container) {
-    container.innerHTML = "";
+const lazyLoader = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            const url = entry.target.getAttribute('data-img');
+            entry.target.setAttribute('src', url)
+        }
+    })
+})
+
+function createMovie(movies, container, {
+    lazyLoad = false,
+    clean = true
+} = {}, 
+) {
+    if (clean) {
+        container.innerHTML = ''
+    }
     movies.forEach(movie => {
         const movieContainer = document.createElement('div');
         movieContainer.classList.add('movies-container');
 
+        // container.innerHTML = `  LOADING SKELETON
+        // <div class="movies-container movie-container--loading"></div>
+        // <div class="movies-container movie-container--loading"></div>
+        // <div class="movies-container movie-container--loading">
+        //     <!-- <img
+        //     src="https://image.tmdb.org/t/p/w300/adOzdWS35KAo21r9R4BuFCkLer6.jpg"
+        //     class="movie-img"
+        //     alt="Nombre de la película"
+        //     /> -->
+        // </div>
+        // `
+
         movieContainer.addEventListener('click', () => {
             location.hash = '#movie=' + movie.id
         })
+        
 
         const movieImg = document.createElement('img');
+        movieImg.addEventListener('error', () => {
+            movieImg.setAttribute('src', 'https://i.blogs.es/31de5d/error503/450_1000.png')
+        })
         movieImg.classList.add('movie-img');
         movieImg.setAttribute('alt', movie.title);
         movieImg.setAttribute(
+            // lazyLoader ? 'data-img' : 'src'
             'src',
             'https://image.tmdb.org/t/p/w300' + movie.poster_path,
         )
+        
+        // if (lazyLoad) {
+        //     lazyLoader.observe(movieImg)
+        // }
+
         movieContainer.appendChild(movieImg);
         container.appendChild(movieContainer)
     });
@@ -57,7 +94,7 @@ async function getTrendingMovies() {
     const movies = data.results;
     console.log(data);
     console.log(movies);
-    createMovie(movies, moviesContainer)
+    createMovie(movies, moviesContainer, {lazyLoad: true, clean: true})
 }
 
 getTrendingMovies()
@@ -80,7 +117,7 @@ async function getMoviesByCategory(id) {
     const movies = data.results;
     console.log(movies);
 
-   createMovie(movies, moviesContainer)
+   createMovie(movies, moviesContainer, {lazyLoad: true})
 }
 
 async function getMoviesBySearch(query) {
